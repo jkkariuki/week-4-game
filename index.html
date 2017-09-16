@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Crystal Game</title>
+    <link type="stylesheet" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="game-div">
+        <div id="Game-Header">
+            <h1>CrystalGame!</h1>
+        </div>
+        <div id="game-instructions">
+            <p>You will be given a random number at the start of the game.</p>            
+            
+            <p>There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score.</p>
+            
+            <p>You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.</p>
+            
+            <p>The value of each crystal is hidden from you until you click on it. Each time when the game starts, the game will change the values of each crystal.</p>
+        </div>
+        <div id="random-number">
+        </div>
+        <div id="wins-losses">
+        </div>
+        <img class="stone" id="peridot" src="assets/images/peridot.jpg">
+        <img class="stone" id="sapphire" src="assets/images/Sapphire.jpg">
+        <img class="stone" id="topaz" src="assets/images/topaz.jpg">
+        <img class="stone" id="blueTopaz" src="assets/images/blueTopaz.jpg">
+        <div id="score-header">
+            Your Total Score is:
+        </div>
+        <div id="user-number">
+        </div>
+        <script type="text/javascript">
+        $(document).ready(function playGame() {
+
+
+            var computerNumber = (Math.floor(Math.random() * (102) + 19))
+            console.log(computerNumber)
+            $("#random-number").html("Winning Number: " + computerNumber);
+
+
+
+            function randomize() {
+                $("#peridot").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#sapphire").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#topaz").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#blueTopaz").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
+            };
+            randomize();
+
+
+            function resetTarget() {
+                computerNumber = (Math.floor(Math.random() * (102) + 19));
+                $("#random-number").html("Winning Number: " + computerNumber);
+                counter = 0;
+                $("#user-number").html("0")
+
+            };
+
+
+
+            var wins = 0;
+            var losses = 0;
+
+            function scoreBoard() {
+                $("#wins-losses").html("<div> wins:  " + wins + "</div>");
+                $("#wins-losses").append("<div>losses: " + losses + "</div>");
+            };
+            scoreBoard();
+
+            function alertLoss() {
+                alert("you loser")
+            };
+
+            function alertWin() {
+                alert("you winner")
+            }
+
+            var counter = 0;
+            function animate(){
+
+            }
+
+            $(".stone").on("click", function() {
+
+                var crystalValue = ($(this).attr("data-crystalvalue"))
+                crystalValue = parseInt(crystalValue);
+                counter += crystalValue;
+                $(this).animate({"width": "85px", "height":"85px"}, 300);
+                $(this).animate({"width": "75px", "height":"75px"}, 300);
+
+
+
+
+                $("#user-number").html(counter)
+
+                if (counter > computerNumber) {
+                    setTimeout(alertLoss, 100);
+                    randomize();
+                    setTimeout(resetTarget, 200)
+                    losses++
+                    scoreBoard();
+
+                }
+
+                if (counter === computerNumber) {
+                    setTimeout(alertWin, 100)
+                    randomize();
+                    setTimeout(resetTarget, 200);
+                    wins++;
+                    scoreBoard();
+                }
+            });
+        });
+        </script>
+    </div>
+</body>
+
+</html>
