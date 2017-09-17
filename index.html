@@ -11,7 +11,7 @@
 <body>
     <div id="game-div">
         <div id="Game-Header">
-            <h1>CrystalGame!</h1>
+            <h1>Crystal<span style="color: #78BDD4">Math<span>!</h1>
         </div>
         <div id="game-instructions">
             <p>You will be given a random number at the start of the game.</p>            
@@ -35,6 +35,7 @@
         </div>
         <div id="user-number">
         </div>
+        
         <script type="text/javascript">
         $(document).ready(function playGame() {
 
@@ -46,10 +47,10 @@
 
 
             function randomize() {
-                $("#peridot").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
-                $("#sapphire").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
-                $("#topaz").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
-                $("#blueTopaz").attr("data-crystalValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#peridot").attr("data-stoneValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#sapphire").attr("data-stoneValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#topaz").attr("data-stoneValue", (Math.floor(Math.random() * (12) + 1)))
+                $("#blueTopaz").attr("data-stoneValue", (Math.floor(Math.random() * (12) + 1)))
             };
             randomize();
 
@@ -74,11 +75,11 @@
             scoreBoard();
 
             function alertLoss() {
-                alert("you loser")
+                alert("Hold this L!")
             };
 
             function alertWin() {
-                alert("you winner")
+                alert("Relax, even a broken clock is right twice a day!!")
             }
 
             var counter = 0;
@@ -88,18 +89,18 @@
 
             $(".stone").on("click", function() {
 
-                var crystalValue = ($(this).attr("data-crystalvalue"))
-                crystalValue = parseInt(crystalValue);
-                counter += crystalValue;
-                $(this).animate({"width": "85px", "height":"85px"}, 300);
-                $(this).animate({"width": "75px", "height":"75px"}, 300);
+                var stoneValue = ($(this).attr("data-stoneValue"))
+                stoneValue = parseInt(stoneValue);
+                counter += stoneValue;
+                $(this).animate({"width": "85px", "height":"85px"}, 100);
+                $(this).animate({"width": "75px", "height":"75px"}, 100);
 
 
 
 
                 $("#user-number").html(counter)
 
-                if (counter > computerNumber) {
+                if (counter > computerNumber) {                   
                     setTimeout(alertLoss, 100);
                     randomize();
                     setTimeout(resetTarget, 200)
@@ -119,6 +120,8 @@
         });
         </script>
     </div>
+
+    
 </body>
 
 </html>
